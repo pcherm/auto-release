@@ -15,3 +15,7 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
           fetch-depth: 1000
+      
+      - name: Set GitHub Token as an environment variable
+        run: echo "GITHUB_TOKEN=${{ secrets.GIT_HUB_PACKAGES_TOKEN }}" >> $GITHUB_ENV
+        shell: bash
