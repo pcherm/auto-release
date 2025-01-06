@@ -29,25 +29,3 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-
-      # - name: Trigger Deployment Workflow
-      #   uses: actions/github-script@v6
-      #   with:
-      #     script: |
-      #       const workflows = [
-      #         "beta-auto-deploy.yaml",
-      #         "demo-auto-deploy.yaml",
-      #         "staging-auto-deploy.yaml",
-      #         "prod-auto-deploy.yaml",
-      #         "nightly-auto-deploy.yaml"
-      #       ];
-
-      #       for (const workflow of workflows) {
-      #         github.rest.actions.createWorkflowDispatch({
-      #           owner: context.repo.owner,
-      #           repo: context.repo.repo,
-      #           workflow_id: workflow,
-      #           ref: '${{ steps.tag_version.outputs.new_tag }}',
-      #         });
-      #         console.log(`Triggered ${workflow}`);
-      #       }
