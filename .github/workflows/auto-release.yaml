@@ -34,6 +34,14 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const workflows = [
+              "beta-auto-deploy.yaml",
+              "demo-auto-deploy.yaml",
+              "staging-auto-deploy.yaml",
+              "prod-auto-deploy.yaml",
+              "nightly-auto-deploy.yaml"
+            ];
+
             for (const workflow of workflows) {
               github.rest.actions.createWorkflowDispatch({
                 owner: context.repo.owner,
