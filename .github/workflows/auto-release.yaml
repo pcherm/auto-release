@@ -35,17 +35,12 @@ jobs:
             next_version="app-hyrax-customers@${major}.${minor}.${patch}"
           fi
           echo "next_version=$next_version" >> $GITHUB_ENV
-      - name: Set GitHub Token as an environment variable
-        run: echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
-        shell: bash
 
-      # Create a new tag
       - name: Create and push tag
         run: |
           git tag "$next_version"
           git push origin "$next_version"
 
-      # Create a GitHub release
       - name: Create GitHub release
         uses: actions/create-release@v1
         env:
