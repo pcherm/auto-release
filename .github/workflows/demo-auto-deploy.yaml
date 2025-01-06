@@ -6,7 +6,6 @@ on:
     # The pipeline will only pick-up the maching tags, e.g.: app-hyrax-office@54.12.10
     tags:
       - 'app-hyrax-customers@[0-9]+.[0-9]+.[0-9]+'
-  workflow_dispatch:
 
 jobs:
   pipeline:
