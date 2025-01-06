@@ -46,13 +46,7 @@ jobs:
               github.rest.actions.createWorkflowDispatch({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                workflow_id: [
-                  "beta-auto-deploy.yaml",
-                  "demo-auto-deploy.yaml",
-                  "staging-auto-deploy.yaml",
-                  "prod-auto-deploy.yaml",
-                  "nightly-auto-deploy.yaml"
-                ],
+                workflow_id: workflow,
                 ref: '${{ steps.tag_version.outputs.new_tag }}',
               });
               console.log(`Triggered ${workflow}`);
