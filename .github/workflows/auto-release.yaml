@@ -22,14 +22,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create GitHub release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ env.next_version }}
-          release_name: ${{ env.next_version }}
-          body: |
-            ## Release Notes
-            - Changes in this release:
-              $(git log $(git describe --tags --abbrev=0)..HEAD --oneline)
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
