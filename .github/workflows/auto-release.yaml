@@ -34,9 +34,18 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'prod-auto-deploy.yaml',
-              ref: '${{ steps.tag_version.outputs.new_tag }}',
-            })
+            for (const workflow of workflows) {
+              github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: [
+                  "beta-auto-deploy.yaml",
+                  "demo-auto-deploy.yaml",
+                  "staging-auto-deploy.yaml",
+                  "prod-auto-deploy.yaml",
+                  "nightly-auto-deploy.yaml"
+                ],
+                ref: '${{ steps.tag_version.outputs.new_tag }}',
+              });
+              console.log(`Triggered ${workflow}`);
+            }

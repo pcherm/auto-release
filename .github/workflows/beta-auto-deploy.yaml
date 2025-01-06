@@ -1,0 +1,22 @@
+name: beta-auto-deploy
+
+on:
+  push:
+    # Pattern matched against refs/tags
+    # The pipeline will only pick-up the maching tags, e.g.: app-hyrax-office@54.12.10
+    tags:
+      - 'app-hyrax-customers@[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1000
+      
+      - name: Set GitHub Token as an environment variable
+        run: echo "GITHUB_TOKEN=${{ secrets.GIT_HUB_PACKAGES_TOKEN }}" >> $GITHUB_ENV
+        shell: bash
